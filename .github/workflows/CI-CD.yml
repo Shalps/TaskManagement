@@ -74,13 +74,13 @@ jobs:
           script: |
             set -e
             
-            echo "📥 Pulling image..."
+            echo " Pulling image..."
             docker pull shalps/task-management:latest
             
-            echo "🛑 Removing old container..."
+            echo " Removing old container..."
             docker rm -f task-management || true
             
-            echo "🚀 Starting container..."
+            echo " Starting container..."
             docker run -d \
               --name task-management \
               --restart unless-stopped \
@@ -90,5 +90,5 @@ jobs:
             echo " Cleaning up..."
             docker image prune -f
             
-            echo "✅ Deploy finished!"
+            echo " Deploy finished!"
             docker ps --filter name=task-management
