@@ -75,20 +75,20 @@ jobs:
             set -e
             
             echo "📥 Pulling image..."
-            docker pull shalps/todo-app:latest
+            docker pull shalps/task-management:latest
             
             echo "🛑 Removing old container..."
-            docker rm -f todo-app || true
+            docker rm -f task-management || true
             
             echo "🚀 Starting container..."
             docker run -d \
-              --name todo-app \
+              --name task-management \
               --restart unless-stopped \
               -p 8080:8080 \
-              shalps/todo-app:latest
+              shalps/task-management:latest
             
             echo " Cleaning up..."
             docker image prune -f
             
             echo "✅ Deploy finished!"
-            docker ps --filter name=todo-app
+            docker ps --filter name=task-management
