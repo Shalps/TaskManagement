@@ -1,0 +1,7 @@
+services:
+  task-management:
+    image: task-management:latest
+    build: .
+    restart: "no"
+    ports:
+      - "8080:8080"
