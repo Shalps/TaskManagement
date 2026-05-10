@@ -69,7 +69,7 @@ jobs:
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
           port: ${{ secrets.VM_PORT }}
-          timeout: 30s
+          timeout: 2m
           debug: true
           script: |
             set -e
