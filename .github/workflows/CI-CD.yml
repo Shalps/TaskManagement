@@ -69,24 +69,26 @@ jobs:
           username: ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
           port: ${{ secrets.VM_PORT }}
-          timeout: 10m
+          timeout: 30s
+          debug: true
           script: |
-            echo "📥 Pulling new image..."
-            docker pull ${{ secrets.DOCKER_USER_NAME }}/task-management:latest
+            set -e
             
-            echo " Stopping old container..."
-            docker stop task-management || true
-            docker rm task-management || true
+            echo "📥 Pulling image..."
+            docker pull shalps/todo-app:latest
             
-            echo "🚀 Starting new container..."
+            echo "🛑 Removing old container..."
+            docker rm -f todo-app || true
+            
+            echo "🚀 Starting container..."
             docker run -d \
-              --name task-management \
+              --name todo-app \
               --restart unless-stopped \
               -p 8080:8080 \
-              ${{ secrets.DOCKER_USER_NAME }}/task-management:latest
+              shalps/todo-app:latest
             
-            echo "🧹 Cleaning up old images..."
+            echo " Cleaning up..."
             docker image prune -f
             
-            echo "✅ Deploy success!"
-            docker ps --filter name=task-management
+            echo "✅ Deploy finished!"
+            docker ps --filter name=todo-app
